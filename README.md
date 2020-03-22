@@ -1,51 +1,22 @@
-# eslint-plugin-lodash-to-native
+Реализовал замену на тернарный оператор.
 
-Converts lodash.map function to standard Array.map if parameter is Array.
-
-## Installation
-
-You'll first need to install [ESLint](http://eslint.org):
-
-```
-$ npm i eslint --save-dev
+```js
+return _.map(collection, fn);
 ```
 
-Next, install `eslint-plugin-lodash-to-native`:
+будет заменено на:
 
-```
-$ npm install eslint-plugin-lodash-to-native --save-dev
-```
-
-**Note:** If you installed ESLint globally (using the `-g` flag) then you must also install `eslint-plugin-lodash-to-native` globally.
-
-## Usage
-
-Add `lodash-to-native` to the plugins section of your `.eslintrc` configuration file. You can omit the `eslint-plugin-` prefix:
-
-```json
-{
-    "plugins": [
-        "lodash-to-native"
-    ]
-}
+```js
+return (проверка, что collection - это массив) ?
+    collection.map(fn) :
+    _.map(collection, fn);
 ```
 
+Для тестирования сделал отельное приложение:
+https://github.com/mpoliakov/test-eslint-plugin-lodash-to-native
 
-Then configure the rules you want to use under the rules section.
-
-```json
-{
-    "rules": {
-        "lodash-to-native/rule-name": 2
-    }
-}
-```
-
-## Supported Rules
-
-* Fill in provided rules here
-
-
-
-
-
+Для запуска:
+1) `npm i`
+2) `node index.js` - для просмотра результата
+3) `eslint index.js` - для вывода сообщений линтера
+4) `eslint index.js --fix` - исправление кода
